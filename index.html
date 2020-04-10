@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TriviaGame</title>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+    <span class="main-container">
+        <div class="left-side">
+            <button id="button1" class="exchange_button">Exchange</button>
+
+            <button id="button2" class="submit_button" type="button">Next</button>
+        </div>
+
+
+        <div class="main-card">
+            <h1 class="heading">TRIVIA GAME</h1>
+            <div class="question-div">
+                <div class="question-card">
+                    
+                    <p class="question-txt">1. Name the currency used in Japan</p>
+                </div>
+            </div>
+            <div class="options-wrapper">
+                <div class="options-div">
+                    <div class="options-card">
+                        <p class="options-txt">Taka</p>
+                    </div>
+                    <div class="options-card">
+                        <p class="options-txt">Dinar</p>
+                    </div>
+                    <div class="options-card">
+                        <p class="options-txt">Yen</p>
+                    </div>
+                    <div class="options-card">
+                        <p class="options-txt">Ngultram</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div  class="right_side">
+
+        <div class="first">
+            <span class="myscore">
+                <p class="your-details">Megha</p>
+                <p class="your-details">8/10</p>
+            </span>
+        </div>
+
+        <div class="second">
+
+            <div class="friends">
+                <template id="template">
+                <span class="friend_span">
+                    <div class="friend_name_div">
+                        <p class="friend-name-txt"></p>
+                    </div>
+                    <div class="friend_score_div">
+                        <p class="friend-score-txt">0/0</p>
+                    </div>
+                </span>
+                </template>
+
+
+            </div>
+
+        </div>
+
+        <div class="third">
+            <button id="add" class="add" type="button">+</button>
+            <button id="clear" class="add" type="button">-</button>
+
+        </div>
+        </div>
+    </span>
+    
+
+
+
+    
+<script>
+    
+    function addFriend(name) {
+        const template = document.querySelector("#template");
+        let newFriendCard = document.importNode(template.content, true);
+        newFriendCard.querySelector(".friend-name-txt").innerHTML = name;
+        document.querySelector(".friends").appendChild(newFriendCard);
+    }
+  
+    document.getElementById("add").addEventListener("click",()=>{
+        let name = prompt("Enter a name");
+        arr.push(name);
+        localStorage.setItem("friends",JSON.stringify(arr));
+        addFriend(name);
+    });
+  
+    document.getElementById("clear").addEventListener("click",()=>{
+      localStorage.removeItem("friends");
+      window.location.reload();
+    });
+    //Creating an array;
+  
+    let arr = localStorage.getItem("friends");
+    if(arr == null){
+      arr = new Array();
+    }
+    else{
+        arr = JSON.parse(arr);
+    }
+    for (key in arr){
+        addFriend(arr[key]);
+    }
+  
+  
+  //For animation
+  
+  document.getElementById("button1").addEventListener("click",()=>{
+      debugger;
+              document.querySelector(".question-card").animate(
+                  [
+                      {
+                          transform: 'translateX(0px)'
+                      },
+                      {
+                          transform: 'translateX(-2000px)'
+                      }
+                      ,{
+                          transform: 'translateX(0px)'
+                      }
+                  ], {
+                      duration: 700
+                  
+                      
+                  });
+          });
+  </script>
+
+
+</body>
+
+</html>
