@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TriviaGame</title>
     <link rel="stylesheet" href="styles.css"/>
+    <script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
+
 </head>
 <body>
     <span class="main-container">
@@ -84,6 +86,20 @@
 
     
 <script>
+
+    let peername = "";
+    let peerfriend = "";
+    let peer;
+    let conn;
+
+    peername = "Megha";
+    peer=new peer(peername+"sguy");
+
+    peer.on('connection',function(conn){
+        conn.on('data',function(data){
+            console.log(data);
+        });
+    });
     
     function addFriend(name) {
         const template = document.querySelector("#template");
@@ -96,6 +112,18 @@
         let name = prompt("Enter a name");
         arr.push(name);
         localStorage.setItem("friends",JSON.stringify(arr));
+
+        console.log("connection established");
+
+        peerriend=name;
+        conn=peer.connect(peerriend + 'sguy');
+        conn.pn('open',function(){
+            conn.send('Connected to '+'peername');
+        });
+
+
+
+
         addFriend(name);
     });
   
@@ -138,6 +166,9 @@
                       
                   });
           });
+
+
+          navigator.serviceWorker.register("serviceworker.js");
   </script>
 
 
