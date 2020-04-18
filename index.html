@@ -49,7 +49,7 @@
 
         <div class="first">
             <span class="myscore">
-                <p class="your-details">Megha</p>
+                <p id ="playername" class="your-details">Megha</p>
                 <p class="your-details">8/10</p>
             </span>
         </div>
@@ -87,13 +87,16 @@
     
 <script>
 
+    
+
     let peername = "";
     let peerfriend = "";
     let peer;
     let conn;
 
     peername = "Megha";
-    peer=new peer(peername+"sguy");
+    peer=new Peer(peername+"sguy");
+
 
     peer.on('connection',function(conn){
         conn.on('data',function(data){
@@ -101,6 +104,18 @@
         });
     });
     
+
+
+    let player = document.getElementById("playername");
+ player.addEventListener("click",() => {
+            let myname1 = prompt("Enter your name");
+            player.innerHTML = myname1;
+            localStorage.setItem("username", myname1);
+            peername=myname1;
+            peer = new Peer(myname1+'sguy');
+        }); 
+
+
     function addFriend(name) {
         const template = document.querySelector("#template");
         let newFriendCard = document.importNode(template.content, true);
@@ -115,10 +130,10 @@
 
         console.log("connection established");
 
-        peerriend=name;
-        conn=peer.connect(peerriend + 'sguy');
-        conn.pn('open',function(){
-            conn.send('Connected to '+'peername');
+        peerfriend=name;
+        conn=peer.connect(peerfriend + 'sguy');
+        conn.on('open',function(){
+            conn.send('Connected to '+peername);
         });
 
 
