@@ -1,4 +1,3 @@
-
 body{
     margin: 0;
     padding: 0;
@@ -60,6 +59,15 @@ body{
     font-weight: bold;
     font-size: 1.5em;
 }
+
+
+
+.options-card:hover{
+transform: scale(1.1);
+background-color: rgb(4, 167, 4);
+}
+
+
 .options-txt{
     text-align: center;
     color: white;
@@ -82,12 +90,19 @@ font-size: 3em;
 .exchange_button{
     width: 20%;
     height: fit-content;
-    
-    background-color:#b0bec5;
+    border-radius: 60%;
+
+    background-color:#f48fb1;
     margin: 5em;   
     color: white; 
     
 }
+
+.exchange_button:hover{
+    background-color: rgb(4, 167, 4);
+}
+
+
 
 
 .submit_button{
@@ -96,9 +111,12 @@ font-size: 3em;
     display: flex;
     justify-content: center;
     border-radius: 60%;
-    background-color:#b0bec5;
+    background-color:#f48fb1;
     margin: 5em;    
     color: white; 
+}
+.submit_button:hover{
+    background-color: rgb(4, 167, 4);
 }
 
 .one{
@@ -126,8 +144,12 @@ flex-direction: column;
     border-radius: 20px;
     font-weight: bold;
     font-size: 1.5em;
-    background-color: #b0bec5;
+    background-color: #f48fb1;
 
+}
+.myscore:hover{
+    transform: scale(1.1);
+    background-color: rgb(4, 167, 4);
 }
 
 
@@ -139,21 +161,42 @@ flex-direction: column;
     display: flex;
     justify-content: center;
     border-radius: 60%;
-    background-color:#b0bec5;    ;
+    background-color:#f48fb1;    ;
     margin: 1em;    
     color: white; 
 
 }
 
+.add:hover{
+
+    background-color: rgb(4, 167, 4);
+    transform: scale(1.1);
+}
+
+.add:active{
+    transform: scale(1.4);
+}
+
 .friends{
     width: 80%;
     margin-left: 30px;
-    background-color:#b0bec5;
+    background-color:#f48fb1;
     display: flex;
     justify-content: center;
     flex-direction: column;
     border-radius: 20%;
 }
+
+.friends:hover{
+
+    background-color: rgb(4, 167, 4);
+    transform: scale(1.1);
+}
+.friends:active{
+    transform: scale(1.4);
+}
+
+
 .friend_span{
     display: flex;
     justify-content: center;
