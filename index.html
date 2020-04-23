@@ -11,9 +11,17 @@
 <body>
     <span class="main-container">
         <div class="left-side">
+           
+
+        <div class="score-details">
+            <p>SCORE</p>
+            <p id="score">0</p>
+            
+        </div>
+
+            <input type="button" id="button" value="Next Question" class="submit_button"> 
             <button id="button1" class="exchange_button">Exchange</button>
 
-            <button id="button2" class="submit_button" type="button">Next</button>
         </div>
 
 
@@ -22,22 +30,25 @@
             <div class="question-div">
                 <div class="question-card">
                     
-                    <p class="question-txt">1. Name the currency used in Japan</p>
+
+                    <p id="questiontxt"></p>
+
+
                 </div>
             </div>
             <div class="options-wrapper">
                 <div class="options-div">
                     <div class="options-card">
-                        <p class="options-txt">Taka</p>
+                        <p class="options-txt"></p>
                     </div>
                     <div class="options-card">
-                        <p class="options-txt">Dinar</p>
+                        <p class="options-txt"></p>
                     </div>
                     <div class="options-card">
-                        <p class="options-txt">Yen</p>
+                        <p class="options-txt"></p>
                     </div>
                     <div class="options-card">
-                        <p class="options-txt">Ngultram</p>
+                        <p class="options-txt"></p>
                     </div>
                 </div>
             </div>
@@ -136,17 +147,14 @@
             conn.send('Connected to '+peername);
         });
 
-
-
-
         addFriend(name);
     });
+
   
     document.getElementById("clear").addEventListener("click",()=>{
       localStorage.removeItem("friends");
       window.location.reload();
     });
-    //Creating an array;
   
     let arr = localStorage.getItem("friends");
     if(arr == null){
@@ -159,9 +167,7 @@
         addFriend(arr[key]);
     }
   
-  
-  //For animation
-  
+    
   document.getElementById("button1").addEventListener("click",()=>{
       debugger;
               document.querySelector(".question-card").animate(
@@ -182,10 +188,64 @@
                   });
           });
 
+ navigator.serviceWorker.register("serviceworker.js");
 
-          navigator.serviceWorker.register("serviceworker.js");
+let question;
+let correct_answer;
+let options;
+let myscore = 0;
+var temporaryValue, randomIndex;
+let optionstxt = document.getElementsByClassName("options-txt");
+for( let i=0; i<4; i++ ){
+    optionstxt[i].addEventListener("click", event => {
+        let clickedanswer = event.currentTarget.innerHTML;
+        if(clickedanswer == correct_answer){
+            myscore++;
+            document.getElementById("score").innerHTML = myscore;
+        }
+        newQuestion();
+    });
+}
+
+var changeQ = function (myarray) {
+
+var indexVal = myarray.length;
+
+while (0 !== indexVal) {
+    randomIndex = Math.floor(Math.random() * indexVal);
+    indexVal -= 1;
+    temporaryValue = myarray[indexVal];
+    myarray[indexVal] = myarray[randomIndex];
+    myarray[randomIndex] = temporaryValue;
+}
+
+return myarray;
+
+};
+document.getElementById("button").addEventListener("click",newQuestion);
+
+function newQuestion(){
+    fetch('https://opentdb.com/api.php?amount=10&category=22&difficulty=easy&type=multiple')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+         question = data.results[0].question;
+         correct_answer = data.results[0].correct_answer;
+         options = data.results[0].incorrect_answers;
+        options.push(correct_answer);
+        options = changeQ(options);
+        console.log("success")
+        document.getElementById("questiontxt").innerHTML = question;
+        for( let i=0; i<4; i++ ){
+            optionstxt[i].innerHTML = options[i];
+        }
+  });
+  
+}
+newQuestion();
+
   </script>
-
 
 </body>
 
